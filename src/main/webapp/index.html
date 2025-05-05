@@ -10,56 +10,33 @@
 			background-color: #f9f9f9;
 			color: #333;
 		}
-
 		h1 {
 			text-align: center;
 			color: #007bff;
 		}
-
 		h2 {
 			margin-top: 30px;
 			color: #0056b3;
 		}
-
-		ul {
-			line-height: 1.7;
-			padding-left: 20px;
-		}
-
-		p {
-			line-height: 1.6;
-		}
-
-		.section {
+		.section, .content {
 			background: white;
 			padding: 20px;
 			margin-top: 20px;
 			border-radius: 8px;
 			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 		}
-
-		.content {
-			margin-top: 40px;
-			background: white;
-			padding: 20px;
-			border-radius: 8px;
-			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-		}
-
 		.input {
 			display: flex;
 			justify-content: center;
 			gap: 10px;
 			margin-bottom: 20px;
 		}
-
 		input[type="text"] {
 			width: 60%;
 			padding: 10px;
 			border-radius: 5px;
 			border: 1px solid #ccc;
 		}
-
 		button {
 			padding: 10px 20px;
 			border: none;
@@ -69,11 +46,9 @@
 			cursor: pointer;
 			font-size: 16px;
 		}
-
 		button:hover {
 			background-color: #0056b3;
 		}
-
 		#loading {
 			display: none;
 			text-align: center;
@@ -81,31 +56,26 @@
 			color: #28a745;
 			margin-top: 10px;
 		}
-
 		#image-container {
 			display: grid;
 			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 			gap: 15px;
 			margin-top: 20px;
 		}
-
 		.image-box {
 			text-align: center;
 			background: #f0f8ff;
 			padding: 10px;
 			border-radius: 8px;
 		}
-
 		.image-box.logo {
 			border: 2px solid #28a745;
 		}
-
 		img {
 			max-width: 100%;
 			height: auto;
 			border-radius: 5px;
 		}
-
 		small {
 			display: block;
 			margin-top: 5px;
@@ -113,7 +83,6 @@
 			color: #555;
 			word-break: break-word;
 		}
-
 		.logo-badge {
 			background-color: #28a745;
 			color: white;
@@ -123,7 +92,6 @@
 			border-radius: 4px;
 			margin-left: 5px;
 		}
-
 		.download-link {
 			display: inline-block;
 			margin-top: 5px;
@@ -132,50 +100,22 @@
 			text-decoration: underline;
 		}
 	</style>
-
 </head>
 
 <body>
 
-<h1>Eulerity Take-Home Challenge</h1>
+<h1>Eulerity Image Finder</h1>
 
 <div class="section">
-	<h2>How it Works 🚀</h2>
+	<h2>How to Use</h2>
 	<ul>
-		<li>Pressing the submit button on this page will make a POST request to <b>/main</b>.</li>
-		<li>The request will contain a form parameter populated with the URL input below.</li>
-		<li>The ImageFinder servlet will respond with a list of image URLs.</li>
-		<li>Javascript on this page sends the request and displays the image list dynamically.</li>
+		<li>Enter any website URL in the input field below (e.g., <code>https://example.com</code>).</li>
+		<li>Click <b>Submit!</b> to start crawling the website for images.</li>
+		<li>All images found will be displayed in a gallery below.</li>
+		<li>Use the filter box to search for keywords such as <code>logo</code>, <code>.svg</code>, or other tags.</li>
+		<li>Images marked as logos will display a green <b>[LOGO]</b> badge.</li>
+		<li>You can also download images directly using the provided links.</li>
 	</ul>
-</div>
-
-<div class="section">
-	<h2>Backend Developers 💻</h2>
-	<ul>
-		<li>Update the ImageFinder servlet to add crawling logic.</li>
-		<li>Feel free to add classes, packages, libraries (we recommend JSoup for parsing).</li>
-		<li>You may modify this HTML/CSS if you wish to improve the interface.</li>
-		<li>Your final submission does not need to contain the original skeleton files.</li>
-		<li>Some ideas:
-			<ul>
-				<li>Crawl not only the given URL, but also other pages in the same domain.</li>
-				<li>Make your crawler multithreaded to speed up response times.</li>
-				<li>Be a friendly crawler — avoid overloading servers.</li>
-				<li>Identify different classes of images (logos, favicons, etc.).</li>
-				<li>Mark images that contain people.</li>
-			</ul>
-		</li>
-	</ul>
-</div>
-
-<div class="section">
-	<h2>Important Notes 📢</h2>
-	<p>Congratulations on making it this far into the interview process!</p>
-	<p>This is a free-form hackathon because we want to see what ideas you bring.</p>
-	<p><strong>If your submission only contains 5–10 lines of new code, please think twice before submitting it.</strong></p>
-	<p>You may use the suggestions above, or build something entirely different — the important thing is to highlight your strengths as a developer.</p>
-	<p><b>Remember, this is your chance to show how you can best contribute to our team.</b></p>
-	<p>Please think about clean design, meaningful variable names, and organized code.</p>
 </div>
 
 <div class="content">
@@ -189,11 +129,9 @@
 	<input type="text" id="filter-input" placeholder="Filter images..." oninput="filterImages()" style="margin-bottom:10px;padding:8px;width:60%;border:1px solid #ccc;border-radius:4px;display:block;margin-left:auto;margin-right:auto">
 
 	<div id="image-container"></div>
-
 </div>
 
 <script>
-
 	function filterImages() {
 		const keyword = document.getElementById('filter-input').value.toLowerCase();
 		const boxes = document.querySelectorAll('.image-box');
@@ -221,31 +159,23 @@
 				.then(response => response.json())
 				.then(images => {
 					document.getElementById('loading').style.display = 'none';
-
 					const container = document.getElementById('image-container');
 					if (images.length === 0) {
 						container.innerHTML = "<p>No images found.</p>";
 					} else {
 						images.forEach(imgUrl => {
-							if (!imgUrl) return; // Skip invalid URLs
-
+							if (!imgUrl) return;
 							const box = document.createElement('div');
 							const isLogo = imgUrl.includes('[LOGO]');
 							const cleanUrl = imgUrl.replace(' [LOGO]', '');
-
 							box.className = 'image-box' + (isLogo ? ' logo' : '');
-
 							box.innerHTML = `
-						<img src="${cleanUrl}" alt="Image">
-						<br>
-						<small>
-							${cleanUrl}
-							${isLogo ? '<span class="logo-badge">LOGO</span>' : ''}
-						</small>
-						<br>
-						<a href="${cleanUrl}" download class="download-link">Download</a>
-					`;
-
+							<img src="${cleanUrl}" alt="Image">
+							<br>
+							<small>${cleanUrl}${isLogo ? ' <span class="logo-badge">LOGO</span>' : ''}</small>
+							<br>
+							<a href="${cleanUrl}" download class="download-link">Download</a>
+						`;
 							container.appendChild(box);
 						});
 					}
@@ -256,7 +186,6 @@
 					console.error(err);
 				});
 	}
-
 </script>
 
 </body>
