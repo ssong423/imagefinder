@@ -3,6 +3,12 @@ A multithreaded Java web crawler that extracts and displays image URLs from a gi
 
 Originally developed as part of a coding challenge.
 
+## Demo Screenshot
+
+Here’s how the Image Finder works in action:
+
+![App Demo](Screenshot%202025-05-05%20at%2016.13.29.png)
+
 ## Features
 ### Web Crawler (Java + JSoup)
 Recursively crawls up to 50 pages within the same domain.
